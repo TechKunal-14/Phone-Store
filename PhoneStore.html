@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Phone Store</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#3b7d6a] min-h-screen flex flex-col">
+
+<header class="bg-[#f5f5dc] shadow-md">
+    <div class="container mx-auto flex justify-between items-center py-4 px-6">
+        <div class="flex items-center space-x-3">
+            <img src="C:/Users/HP/Desktop/Logo.png" alt="logo" class="h-10 w-10 object-contain"/>
+            <h1 class="text-2xl font-bold text-blue-700">Phone-Store</h1>
+        </div>
+        <nav>
+            <ul class="flex space-x-6 text-gray-700 font-semibold">
+                <li><a href="#" class="hover:text-blue-700 transition">Home</a></li>
+                <li><a href="#" class="hover:text-blue-700 transition">More Phones</a></li>
+                <li><a href="#" class="hover:text-blue-700 transition">About</a></li>
+                <li><a href="#" class="hover:text-blue-700 transition">Contact Us</a></li>
+                <li><a href="C:/Users/HP/Desktop/cart.html" class="bg-[#D2B48C] py-2 px-2 hover:text-blue-700 transition rounded-lg">Your Cart</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<div id="message" class="text-green-600 font-semibold text-center my-4"></div>
+
+<section id="phones" class="container mx-auto py-16 px-6">
+    <h3 class="text-3xl font-bold text-[#f5f5dc] mb-10 text-center">Trending Phones 🔥</h3>
+    <div class="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+
+        <div class="bg-white rounded-lg shadow-md p-5 flex flex-col">
+            <img src="C:/Users/HP/Desktop/Oneplus 10T-8.png" alt="OnePlus 10T" class="h-48 object-contain mb-4"/>
+            <h4 class="font-semibold text-lg mb-2">OnePlus 10T</h4>
+            <p class="text-gray-600 mb-4">₹59,999</p>
+            <button onclick="addToCart('OnePlus 10T', 59999)" class="mt-auto bg-blue-700 text-white py-2 rounded hover:bg-blue-800 transition">Add to Cart</button>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-5 flex flex-col">
+            <img src="C:/Users/HP/Desktop/Samsung galaxy-s25.avif" alt="Samsung Galaxy S25 Ultra" class="h-48 object-contain mb-4"/>
+            <h4 class="font-semibold text-lg mb-2">Samsung Galaxy S25 Ultra</h4>
+            <p class="text-gray-600 mb-4">₹1,40,999</p>
+            <button onclick="addToCart('Samsung Galaxy S25 Ultra', 140999)" class="mt-auto bg-blue-700 text-white py-2 rounded hover:bg-blue-800 transition">Add to Cart</button>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-5 flex flex-col">
+            <img src="C:/Users/HP/Desktop/iphone_16pro.png" alt="iPhone 16 Pro" class="h-48 object-contain mb-4"/>
+            <h4 class="font-semibold text-lg mb-2">iPhone 16 Pro</h4>
+            <p class="text-gray-600 mb-4">₹1,22,999</p>
+            <button onclick="addToCart('iPhone 16 Pro', 122999)" class="mt-auto bg-blue-700 text-white py-2 rounded hover:bg-blue-800 transition">Add to Cart</button>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-5 flex flex-col">
+            <img src="C:/Users/HP/Desktop/Google Pixel 7.jfif" alt="Google Pixel 7" class="h-48 object-contain mb-4"/>
+            <h4 class="font-semibold text-lg mb-2">Google Pixel 7</h4>
+            <p class="text-gray-600 mb-4">₹49,999</p>
+            <button onclick="addToCart('Google Pixel 7', 49999)" class="mt-auto bg-blue-700 text-white py-2 rounded hover:bg-blue-800 transition">Add to Cart</button>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-5 flex flex-col">
+            <img src="C:/Users/HP/Desktop/Xiaomi Redmi Note 12.jfif" alt="Xiaomi Redmi Note 12" class="h-48 object-contain mb-4"/>
+            <h4 class="font-semibold text-lg mb-2">Xiaomi Redmi Note 12</h4>
+            <p class="text-gray-600 mb-4">₹14,999</p>
+            <button onclick="addToCart('Xiaomi Redmi Note 12', 14999)" class="mt-auto bg-blue-700 text-white py-2 rounded hover:bg-blue-800 transition">Add to Cart</button>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-5 flex flex-col">
+            <img src="C:/Users/HP/Desktop/Motorola Edge 30.jfif" alt="Motorola Edge 30" class="h-48 object-contain mb-4"/>
+            <h4 class="font-semibold text-lg mb-2">Motorola Edge 30</h4>
+            <p class="text-gray-600 mb-4">₹28,499</p>
+            <button onclick="addToCart('Motorola Edge 30', 28499)" class="mt-auto bg-blue-700 text-white py-2 rounded hover:bg-blue-800 transition">Add to Cart</button>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-5 flex flex-col">
+            <img src="C:/Users/HP/Desktop/Realme Narzo 6.jfif" alt="Realme Narzo 60" class="h-48 object-contain mb-4"/>
+            <h4 class="font-semibold text-lg mb-2">Realme Narzo 60</h4>
+            <p class="text-gray-600 mb-4">₹12,999</p>
+            <button onclick="addToCart('Realme Narzo 60', 12999)" class="mt-auto bg-blue-700 text-white py-2 rounded hover:bg-blue-800 transition">Add to Cart</button>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-5 flex flex-col">
+            <img src="C:/Users/HP/Desktop/Sony Xperia 10.jfif" alt="Sony Xperia 10" class="h-48 object-contain mb-4"/>
+            <h4 class="font-semibold text-lg mb-2">Sony Xperia 10</h4>
+            <p class="text-gray-600 mb-4">₹24,499</p>
+            <button onclick="addToCart('Sony Xperia 10', 24499)" class="mt-auto bg-blue-700 text-white py-2 rounded hover:bg-blue-800 transition">Add to Cart</button>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-5 flex flex-col">
+            <img src="C:/Users/HP/Desktop/Samsung Galaxy A54.jfif" alt="Samsung Galaxy A54" class="h-48 object-contain mb-4"/>
+            <h4 class="font-semibold text-lg mb-2">Samsung Galaxy A54</h4>
+            <p class="text-gray-600 mb-4">₹29,999</p>
+            <button onclick="addToCart('Samsung Galaxy A54', 29999)" class="mt-auto bg-blue-700 text-white py-2 rounded hover:bg-blue-800 transition">Add to Cart</button>
+        </div>
+
+    </div>
+</section>
+
+<footer class="bg-[#f5f5dc] py-6 mt-auto text-center text-gray-700 font-semibold">
+    <p>@ 2025 PhoneStore. All rights reserved.</p>
+</footer>
+
+<script>
+    function addToCart(productName, productPrice) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart.push({ name: productName, price: productPrice });
+    localStorage.setItem('cart', JSON.stringify(cart));
+    alert(productName + " added to cart!");
+}
+
+</script>
+
+</body>
+</html>

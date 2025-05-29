@@ -1,0 +1,70 @@
+<html>
+<head>
+  <title>Your Cart</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#3b7d6a] min-h-screen flex flex-col">
+
+
+<section class="container mx-auto px-6 py-16 flex-grow">
+  <h3 class="text-3xl font-bold text-[#f5f5dc] mb-10 text-center">Your Cart 🛒</h3>
+  <div id="cart-items" class="bg-white rounded-lg shadow-md p-6 max-w-3xl mx-auto">
+    <!-- Cart items will be displayed here -->
+  </div>
+
+  <!-- Proceed to Checkout Button -->
+  <div class="max-w-3xl mx-auto mt-8 text-center">
+    <button id="checkout-btn" class="bg-green-600 text-white py-3 px-8 rounded-lg text-lg font-semibold hover:bg-green-700 transition">
+      Proceed to Checkout
+    </button>
+  </div>
+</section>
+
+<footer class="bg-[#f5f5dc] py-6 text-center text-gray-700 font-semibold">
+  <p>@ 2025 PhoneStore. All rights reserved.</p>
+</footer>
+
+<script>
+  function displayCart() {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let cartItemsDiv = document.getElementById('cart-items');
+    cartItemsDiv.innerHTML = '';
+
+    if (cart.length === 0) {
+      cartItemsDiv.innerHTML = '<p class="text-center text-gray-600">Your cart is empty.</p>';
+      return;
+    }
+
+    let total = 0;
+    cart.forEach((item, index) => {
+      total += item.price;
+      cartItemsDiv.innerHTML += `
+            <div class="flex justify-between items-center border-b border-gray-300 py-3">
+            <span class="font-semibold flex-1">${item.name}</span>
+            <span class="w-24 text-right mr-4">₹${item.price.toLocaleString()}</span>
+            <button onclick="removeFromCart(${index})" class="text-red-600 hover:text-red-800">Remove</button>
+            </div>
+      `;
+    });
+
+    cartItemsDiv.innerHTML += `
+      <div class="flex justify-between items-center mt-6 font-bold text-lg">
+        <span>Total:</span>
+        <span>₹${total.toLocaleString()}</span>
+      </div>
+    `;
+  }
+
+  function removeFromCart(index) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart.splice(index, 1);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    displayCart();
+  }
+
+
+  displayCart();
+</script>
+
+</body>
+</html>
