@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Checkout - Mobista</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+  </style>
+</head>
+<body class="bg-[#2C3E50] h-screen w-screen text-black">
+
+  <!-- Header -->
+  <header class="bg-[#ECECEC] shadow-md">
+    <div class="container mx-auto flex justify-between items-center py-4 px-6">
+      <div class="flex items-center space-x-3">
+        <img src="C:/Users/DELL/Desktop/My Projects/Mobista/Logo.png" alt="logo" class="h-15 w-20 object-contain" />
+        <h1 class="text-5xl font-bold text-blue-700" style="font-family: 'Pacifico', cursive;">Mobista</h1>
+      </div>
+    </div>
+  </header>    
+
+  <!-- Main Checkout Area -->
+  <div class="h-full w-full grid grid-cols-1 md:grid-cols-2 gap-4 p-6">
+
+    <!-- Shipping Form -->
+    <form id="checkout-form" class="flex flex-col justify-start space-y-4 bg-[#ECECEC] p-6 rounded-xl shadow-md h-full">
+      <h2 class="text-3xl text-[#2C3E50] font-bold mb-4">Shipping Information</h2>
+
+      <input type="text" placeholder="Full Name" required class="p-3 border border-gray-300 rounded-md" />
+      <input type="text" placeholder="State" required class="p-3 border border-gray-300 rounded-md" />
+      <input type="text" placeholder="City" required class="p-3 border border-gray-300 rounded-md" />
+      <input type="text" placeholder="Address" required class="p-3 border border-gray-300 rounded-md" />  
+      <input type="text" placeholder="ZIP Code" required class="p-3 border border-gray-300 rounded-md" />
+      <input type="tel" placeholder="Phone Number" required class="p-3 border border-gray-300 rounded-md" />
+      <input type="text" placeholder="E-mail" required class="p-3 border border-gray-300 rounded-md" />
+    </form>
+
+    <!-- Order Summary -->
+    <div class="flex flex-col bg-[#ECECEC] p-6 rounded-xl shadow-md h-full">
+      <h2 class="text-3xl text-[#2C3E50] font-bold mb-4">Order Summary:</h2>
+
+      <ul id="summary-items" class="bg-white p-3 border border-gray-300 rounded-md font-semibold mb-4 space-y-2"></ul>
+
+      <div class="space-y-1 text-[#2C3E50] text-lg font-semibold mb-6">
+        <div class="flex justify-between">
+          <span>Subtotal:</span>
+          <span>₹<span id="subtotal-amount">0</span></span>
+        </div>
+        <div class="flex justify-between">
+          <span>Total Tax (9%):</span>
+          <span>₹<span id="tax-amount">0</span></span>
+        </div>
+        <div class="flex justify-between text-xl font-bold">
+          <span>Grand Total:</span>
+          <span>₹<span id="checkout-total">0</span></span>
+        </div>
+      </div>
+
+      <!-- Proceed Button -->
+      <button onclick="placeOrder()" class="bg-[#27AE60] hover:bg-green-700 text-white py-3 px-8 rounded-md text-lg font-semibold mb-3">
+        Proceed to Payment
+      </button>
+
+      <!-- Always-visible Summary -->
+      <div class="bg-white p-4 rounded-md border border-gray-300 text-sm space-y-1">
+        <p><strong>👤 Name:</strong> <span id="visible-name">-</span></p>
+        <p><strong>📧 Email:</strong> <span id="visible-email">-</span></p>
+        <p><strong>💵 Total:</strong> ₹<span id="visible-total">0</span></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script -->
+  <script>
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const summary = document.getElementById('summary-items');
+    const subtotalDisplay = document.getElementById('subtotal-amount');
+    const taxDisplay = document.getElementById('tax-amount');
+    const totalDisplay = document.getElementById('checkout-total');
+
+    let subtotal = 0;
+
+    if (cart.length === 0) {
+      const li = document.createElement('li');
+      li.textContent = "Your cart is empty.";
+      li.className = "text-gray-500 italic";
+      summary.appendChild(li);
+    } else {
+      cart.forEach(item => {
+        const li = document.createElement('li');
+        li.className = "flex justify-between";
+        li.innerHTML = `<span>${item.name}</span><span>₹${item.price}</span>`;
+        summary.appendChild(li);
+        subtotal += item.price;
+      });
+    }
+
+    const taxRate = 0.09;
+    const taxAmount = Math.round(subtotal * taxRate);
+    const grandTotal = subtotal + taxAmount;
+
+    subtotalDisplay.textContent = subtotal;
+    taxDisplay.textContent = taxAmount;
+    totalDisplay.textContent = grandTotal;
+
+    function updateVisibleSummary() {
+      const inputs = document.querySelectorAll('#checkout-form input');
+      document.getElementById('visible-name').textContent = inputs[0].value || '-';
+      document.getElementById('visible-email').textContent = inputs[6].value || '-';
+      document.getElementById('visible-total').textContent = grandTotal;
+    }
+
+    function placeOrder() {
+      const inputs = document.querySelectorAll('#checkout-form input');
+      const name = inputs[0].value;
+      const email = inputs[6].value;
+
+      if (!name || !email) {
+        alert("Please fill in your name and email.");
+        return;
+      }
+
+      localStorage.setItem('userName', name);
+      localStorage.setItem('userEmail', email);
+      localStorage.setItem('totalAmount', grandTotal);
+
+      window.location.href = "payment.html";
+    }
+
+    document.querySelectorAll('#checkout-form input').forEach(input =>
+      input.addEventListener('input', updateVisibleSummary)
+    );
+
+    window.onload = function () {
+      const savedName = localStorage.getItem('userName');
+      const savedEmail = localStorage.getItem('userEmail');
+      if (savedName && savedEmail) {
+        const inputs = document.querySelectorAll('#checkout-form input');
+        inputs[0].value = savedName;
+        inputs[6].value = savedEmail;
+      }
+      updateVisibleSummary();
+    };
+  </script>
+
+</body>
+</html>
